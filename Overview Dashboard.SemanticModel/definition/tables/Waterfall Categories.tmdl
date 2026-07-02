@@ -1,0 +1,40 @@
+table 'Waterfall Categories'
+	lineageTag: 5b15d599-a061-4ca9-ab07-5360131652e7
+
+	measure 'Waterfall Values' =
+			
+			SWITCH(SELECTEDVALUE('Waterfall Categories'[Category]),
+			    "Total Sales", [Total Revenue],
+			    "Total Cost", [Total Cost],
+			    "Gross Profit", [Gross Profit],
+			    "Total Value of Returns", [Total Value of Returns],
+			    "Adjusted Profit", [Net Profit],
+			    BLANK()
+			)
+		lineageTag: f9bc4461-4ddc-4f00-8667-f2dcf0de43bc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Category
+		lineageTag: d0f1d549-fcfd-4cc7-b4e9-b153c6a6951a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: d7d6bc2d-91e7-40cc-956f-7e87cc8a5274
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Waterfall Categories' = calculated
+		mode: import
+		source = DATATABLE("Category", STRING, "Order", INTEGER, {{"Total Sales", 1}, {"Total Cost", 2}, {"Gross Profit", 3}, {"Total Value of Returns", 4}, {"Adjusted Profit", 5}})
+
+	annotation PBI_Id = b51c3e5bd542403b9b39227251a65af9
+

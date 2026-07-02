@@ -1,0 +1,135 @@
+table Dim_Date
+	lineageTag: 776b9351-9a5d-4211-92bf-ce3b508eab48
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: d9616277-a2c1-4aae-90bd-c0a749d7165b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 790d4361-e968-4a03-9752-263f43a5c7f7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Number'
+		formatString: 0
+		lineageTag: d75cf5f4-1982-45d5-89b9-e08b98eed438
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Quarter Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: f4130636-ba39-42e5-b699-7af77e0a468d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: 32b0199b-19d4-4ab4-b44e-fad37b1a9845
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 5affbcf0-1be2-405f-91b9-aaa2f24132fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short Name'
+		lineageTag: 93869419-c96f-40f8-8e23-2aa4aa7e67f6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Short Name]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Month'
+		formatString: 0
+		lineageTag: 77adbbe6-ed45-4dbb-8731-fa0b6a9f747e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day of Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Number'
+		formatString: 0
+		lineageTag: 7d1a4ab3-a357-4602-a3a6-638c51f9177a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day of Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Name'
+		lineageTag: 99244190-120e-4190-8568-ae943b010193
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Day of Week Name]
+		sortByColumn: 'Day of Week Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: f3bedfa5-c60b-45c9-b789-7117d9548869
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Quarter
+		lineageTag: 71f02392-4b22-411a-bcac-4ef9ab6bff45
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS (
+				    // 1. Generate the continuous list of dates based on your Fact table
+				    CALENDAR ( MIN('Fact_Sales'[OrderDate]), MAX('Fact_Sales'[OrderDate]) ),
+				    
+				    // 2. Add useful columns for filtering and formatting
+				    "Year", YEAR ( [Date] ),
+				    "Quarter Number", QUARTER ( [Date] ),
+				    "Quarter", "Q" & QUARTER ( [Date] ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month Name", FORMAT ( [Date], "MMMM" ),
+				    "Month Short Name", FORMAT ( [Date], "MMM" ),
+				    "Day of Month", DAY ( [Date] ),
+				    "Day of Week Number", WEEKDAY ( [Date], 2 ), // 2 sets Monday as day 1 and Sunday as day 7
+				    "Day of Week Name", FORMAT ( [Date], "DDDD" ),
+				    "Year-Month", FORMAT ( [Date], "YYYY-MM" ),
+				    "Year-Quarter", YEAR ( [Date] ) & "-Q" & QUARTER ( [Date] )
+				)
+				```
+
+	annotation PBI_Id = 4249db5c161844c380e55f4e60593af0
+

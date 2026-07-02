@@ -1,0 +1,32 @@
+relationship AutoDetected_6cbd69cc-e851-4922-b5f0-8dc203f8f33f
+	fromColumn: 'Product Subcategories Lookup'.ProductCategoryKey
+	toColumn: 'Product Categories Lookup'.ProductCategoryKey
+
+relationship AutoDetected_056651b2-3bed-4fa2-bb35-a43fc3418eba
+	fromColumn: 'Product Lookup'.ProductSubcategoryKey
+	toColumn: 'Product Subcategories Lookup'.ProductSubcategoryKey
+
+relationship AutoDetected_876f5791-0ae6-4fce-8b21-900272ac419d
+	fromColumn: 'Returns Data'.ProductKey
+	toColumn: 'Product Lookup'.ProductKey
+
+relationship AutoDetected_64a24d69-e999-4695-9ccf-feb86d578875
+	fromColumn: Fact_Sales.ProductKey
+	toColumn: 'Product Lookup'.ProductKey
+
+relationship 565f0e59-a6b6-9b95-13a8-612e76fec1a3
+	fromColumn: Fact_Sales.OrderDate
+	toColumn: Dim_Date.Date
+
+relationship 811cf44b-7ece-a455-fe3b-4eef860364ad
+	fromColumn: 'Returns Data'.ReturnDate
+	toColumn: Dim_Date.Date
+
+relationship 6fe9afa8-933b-0875-e732-3a6b4065666c
+	fromColumn: Fact_Sales.TerritoryKey
+	toColumn: 'Territory Lookup'.SalesTerritoryKey
+
+relationship 2d928855-6a46-84a3-cfe8-6efc86b5af1c
+	fromColumn: Fact_Sales.CustomerKey
+	toColumn: 'Customer Lookup'.CustomerKey
+

@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Calendar Lookup","Customer Lookup","Product Categories Lookup","Product Lookup","Product Subcategories Lookup","Returns Data","Territory Lookup","Fact_Sales","Sales Data 2021","Sales Data 2022"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Calendar Lookup'
+ref table 'Customer Lookup'
+ref table 'Product Categories Lookup'
+ref table 'Product Lookup'
+ref table 'Product Subcategories Lookup'
+ref table 'Returns Data'
+ref table 'Territory Lookup'
+ref table Fact_Sales
+ref table 'All Measures'
+ref table Dim_Date
+ref table 'Waterfall Categories'
+ref table 'Product View Toggle'
+
+ref cultureInfo en-US
+

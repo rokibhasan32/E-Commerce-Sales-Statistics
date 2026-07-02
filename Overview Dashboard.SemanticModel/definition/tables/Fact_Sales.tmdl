@@ -1,0 +1,351 @@
+table Fact_Sales
+	lineageTag: f5af62b9-cfe9-4d48-82cc-281300e2a3d3
+
+	measure 'Total Revenue' = SUMX('Fact_Sales', 'Fact_Sales'[OrderQuantity] * RELATED('Product Lookup'[ProductPrice]))
+		lineageTag: 93863584-7c8b-448d-a0b5-ce99bd971df1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Orders' = DISTINCTCOUNT('Fact_Sales'[OrderNumber])
+		formatString: 0
+		lineageTag: 069de48a-34bf-434d-9d05-b67a84f0da26
+
+	measure 'Return Rate' = DIVIDE(SUM('Returns Data'[ReturnQuantity]), SUM('Fact_Sales'[OrderQuantity]), 0)
+		lineageTag: 492def9b-f371-4480-990f-547ebb22ddfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Cost' = SUMX('Fact_Sales', 'Fact_Sales'[OrderQuantity] * RELATED('Product Lookup'[ProductCost]))
+		lineageTag: e1aa0c19-5ef4-4368-998f-22072aee8def
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Profit' = [Total Revenue] - [Total Cost]
+		lineageTag: 327f6fad-94c3-464c-95d2-af1408db101f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit Margin' = DIVIDE([Gross Profit], [Total Revenue], 0)
+		lineageTag: e0691e13-b261-4798-9bcc-98148bf7a670
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Prev Month' = CALCULATE([Total Revenue], DATEADD('Dim_Date'[Date], -1, MONTH))
+		lineageTag: 9d2c2b63-5b1f-4008-8185-d30714dd85d9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue % Change' = DIVIDE([Total Revenue] - [Revenue Prev Month], [Revenue Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8ded32a5-14c3-4b60-95c2-2fba44db1cc1
+
+	measure 'Total Units Sold' = SUM('Fact_Sales'[OrderQuantity])
+		formatString: 0
+		lineageTag: f6ccd0de-29d3-4740-97bb-c2de78e90c43
+
+	measure 'Total Units Returns' = SUM('Returns Data'[ReturnQuantity])
+		formatString: 0
+		lineageTag: 9625f504-99a0-4eaa-99e8-3db18627bdf3
+
+	measure 'Orders Prev Month' = CALCULATE([Total Orders], DATEADD('Dim_Date'[Date], -1, MONTH))
+		formatString: 0
+		lineageTag: f41a79ee-2f50-40a2-94c4-1f589f2b71a5
+
+	measure 'Orders % Change' = DIVIDE([Total Orders] - [Orders Prev Month], [Orders Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c8785574-5e97-4bfb-9cb4-da787dc095d2
+
+	measure 'Units Sold Prev Month' = CALCULATE([Total Units Sold], DATEADD('Dim_Date'[Date], -1, MONTH))
+		formatString: 0
+		lineageTag: 5a070177-c201-4929-a730-197a66bab5fb
+
+	measure 'Units Sold % Change' = DIVIDE([Total Units Sold] - [Units Sold Prev Month], [Units Sold Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c3241b1a-58f7-4a4e-921a-594de14f5319
+
+	measure 'Profit Prev Month' = CALCULATE([Gross Profit], DATEADD('Dim_Date'[Date], -1, MONTH))
+		lineageTag: fbbe11fc-8680-4d00-8b77-8031ee12ce3c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit % Change' = DIVIDE([Gross Profit] - [Profit Prev Month], [Profit Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9605f93f-3809-4274-a2a2-6d38c10ca5a2
+
+	measure 'Returns Prev Month' = CALCULATE([Total Units Returns], DATEADD('Dim_Date'[Date], -1, MONTH))
+		formatString: 0
+		lineageTag: b763d573-b82b-4bc0-977e-516893868deb
+
+	measure 'Returns % Change' = DIVIDE([Total Units Returns] - [Returns Prev Month], [Returns Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d2944776-cbc4-46ba-8220-1303c194bf64
+
+	measure 'Return Rate Prev Month' = CALCULATE([Return Rate], DATEADD('Dim_Date'[Date], -1, MONTH))
+		lineageTag: 947eb0ce-7ae0-430e-930d-8128ffb7a81d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Return Rate % Change' = DIVIDE([Return Rate] - [Return Rate Prev Month], [Return Rate Prev Month], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ae588a2f-1c5e-4469-9015-98b7443b2569
+
+	measure 'Sales Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Revenue Prev Month], "0,,.00M") & 
+			" / " & 
+			FORMAT([Revenue % Change], "0.00%")
+			```
+		lineageTag: fc74ec1d-5d4c-4ca1-9b6f-eeadc54fcfc5
+
+	measure 'Orders Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Orders Prev Month], "0,.0K") & 
+			" / " & 
+			FORMAT([Orders % Change], "0.00%")
+			```
+		lineageTag: 5cd3ca58-3b6c-41df-84d7-039fb19da1ec
+
+	measure 'Units Sold Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Units Sold Prev Month], "0,.0K") & 
+			" / " & 
+			FORMAT([Units Sold % Change], "0.00%")
+			```
+		lineageTag: 22969c47-d9c1-4211-ac5b-8c4fb3b94370
+
+	measure 'Profit Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Profit Prev Month], "0,,.00M") & 
+			" / " & 
+			FORMAT([Profit % Change], "0.00%")
+			```
+		lineageTag: eb0b72a1-c5d4-4126-9b56-c16b0bac4cf3
+
+	measure 'Returns Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Returns Prev Month], "0,.0K") & 
+			" / " & 
+			FORMAT([Returns % Change], "0.00%")
+			```
+		lineageTag: 728e39d8-ece4-4f40-8a50-83b9c74f69c2
+
+	measure 'Return Rate Comparison' = ```
+			
+			"vs prev: " & 
+			FORMAT([Return Rate Prev Month], "0.00") & 
+			" / " & 
+			FORMAT([Return Rate % Change], "0.00%")
+			```
+		lineageTag: 07f1ed5f-529b-4d1c-98a9-5f3bc281d0f7
+
+	measure 'Total Customers' = DISTINCTCOUNT(Fact_Sales[CustomerKey])
+		formatString: 0
+		lineageTag: 9c4fb5a5-4ad0-4e23-8227-29291dc2250f
+
+	measure 'Avg Order Value' = DIVIDE([Total Revenue], [Total Orders], 0)
+		lineageTag: d9c39bcd-9d3c-48ba-b4a5-a52b6385b1cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg. Sales per Customer' = DIVIDE([Total Revenue], [Total Customers], 0)
+		lineageTag: 48969213-f1e7-4f4a-8667-4bab8b258bb0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Customers (L-180d)' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    DATESINPERIOD(Dim_Date[Date], MAX(Dim_Date[Date]), -180, DAY)
+			)
+		formatString: 0
+		lineageTag: 23a30c6d-a991-4217-8299-038a6733ad8d
+
+	measure 'Lost Customers (L-180d)' =
+			
+			VAR ActiveCust = CALCULATETABLE(VALUES(Fact_Sales[CustomerKey]), DATESINPERIOD(Dim_Date[Date], MAX(Dim_Date[Date]), -180, DAY))
+			VAR AllCust = CALCULATETABLE(VALUES(Fact_Sales[CustomerKey]), FILTER(ALL(Dim_Date), Dim_Date[Date] <= MAX(Dim_Date[Date])))
+			RETURN COUNTROWS(EXCEPT(AllCust, ActiveCust))
+		formatString: 0
+		lineageTag: e06da9ec-c3c6-4a75-bd33-207923d30abc
+
+	measure 'New Customers' =
+			
+			COUNTROWS(
+			    FILTER(
+			        ADDCOLUMNS(
+			            VALUES(Fact_Sales[CustomerKey]),
+			            "FirstPurchaseDate", CALCULATE(MIN(Fact_Sales[OrderDate]), REMOVEFILTERS(Dim_Date))
+			        ),
+			        [FirstPurchaseDate] IN VALUES(Dim_Date[Date])
+			    )
+			)
+		formatString: 0
+		lineageTag: 144da445-fcd6-460e-b22f-9cb41907d1e4
+
+	measure 'Profit Per Unit' = DIVIDE([Gross Profit], SUM(Fact_Sales[OrderQuantity]))
+		lineageTag: 2c2627f9-9aaa-4377-8afc-f3b3c2f4e530
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Sales' = TOTALYTD([Total Revenue], 'Dim_Date'[Date])
+		lineageTag: 3c487a06-8a67-41d6-b36b-68b116ab947a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MoM Growth %' = DIVIDE([Total Revenue] - CALCULATE([Total Revenue], DATEADD('Dim_Date'[Date], -1, MONTH)), CALCULATE([Total Revenue], DATEADD('Dim_Date'[Date], -1, MONTH)))
+		lineageTag: 25198e84-dfa0-4ff1-b15e-ac5e0b3ffd92
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Growth %' = DIVIDE([Total Revenue] - CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Dim_Date'[Date])), CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Dim_Date'[Date])))
+		lineageTag: fe27ab94-9322-49de-a265-cda29df505ed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actual Cumulative' =
+			
+			VAR CurrentDate = MAX('Dim_Date'[Date])
+			RETURN
+			CALCULATE(
+			    [Total Revenue],
+			    FILTER(
+			        ALL('Dim_Date'),
+			        'Dim_Date'[Date] <= CurrentDate
+			    )
+			)
+		lineageTag: c45b7ee6-4c7a-4025-9267-35949ee23686
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Cumulative (PY)' =
+			
+			CALCULATE(
+			    [Actual Cumulative],
+			    SAMEPERIODLASTYEAR('Dim_Date'[Date])
+			)
+		lineageTag: 354a2ba0-87fa-4cdf-b688-26b69c2c48e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Profit per Customer' = DIVIDE([Gross Profit], DISTINCTCOUNT('Fact_Sales'[CustomerKey]))
+		lineageTag: ab017dbd-0969-47fc-a90c-6385a34adcd9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Customer Rank' = RANKX(ALL('Customer Lookup'[FullName]), [Total Revenue], , DESC, Dense)
+		formatString: 0
+		lineageTag: 7afec718-3d9e-4c5a-9421-025007629579
+
+	measure 'Cumulative Sales %' =
+			
+			VAR CurrentRank = [Customer Rank]
+			VAR TotalSales = CALCULATE([Total Revenue], ALL('Customer Lookup'[FullName]))
+			VAR CumulativeSales = CALCULATE(
+			    [Total Revenue],
+			    TOPN(CurrentRank, ALL('Customer Lookup'[FullName]), [Total Revenue], DESC)
+			)
+			RETURN DIVIDE(CumulativeSales, TotalSales)
+		lineageTag: 86d4db93-67d5-44c7-a67e-e47e8ca2f13e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Frequency = DISTINCTCOUNT('Fact_Sales'[OrderNumber])
+		formatString: 0
+		lineageTag: 773b2cad-f910-4dc3-bdbe-56df5d36a68b
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 712f08a5-5bb2-4beb-930b-71d61fa2cb12
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StockDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4fe05a42-e675-4221-883d-031e7b9502f2
+		summarizeBy: none
+		sourceColumn: StockDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OrderNumber
+		dataType: string
+		lineageTag: e1ef8794-7f54-4b5b-b06b-1a0f810e3d03
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d859ec0-8af5-4da3-a90a-5e2386013f25
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 67d3dc79-149b-4017-8468-c862017a6403
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f427e30-8af5-4b07-85a4-afa8c2b65f79
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineItem
+		dataType: int64
+		formatString: 0
+		lineageTag: bda58be5-5fd2-4e91-8261-0e27504c3e4a
+		summarizeBy: sum
+		sourceColumn: OrderLineItem
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 08452eaf-51e5-408c-8880-e7fbaf04174f
+		summarizeBy: sum
+		sourceColumn: OrderQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\rokib.hasan\Documents\Work\Learning\AdventureWorks-Internet-Sales-Analytics-main (1)\AdventureWorks-Internet-Sales-Analytics-main\Sales Data\AdventureWorks Sales Data 2020.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OrderDate", type date}, {"StockDate", type date}, {"OrderNumber", type text}, {"ProductKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"TerritoryKey", Int64.Type}, {"OrderLineItem", Int64.Type}, {"OrderQuantity", Int64.Type}}),
+				    #"Appended Query" = Table.Combine({#"Changed Type", #"Sales Data 2021", #"Sales Data 2022"})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

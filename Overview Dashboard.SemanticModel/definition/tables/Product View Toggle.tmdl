@@ -1,0 +1,62 @@
+table 'Product View Toggle'
+	lineageTag: 2ebd07d9-279a-47d2-b0fd-b4e64117b2fa
+
+	measure 'Dynamic Chart Title' = ```
+			
+			VAR SelectedOrder = SELECTEDVALUE('Product View Toggle'[Product View Toggle Order])
+			
+			RETURN
+			SWITCH(
+			    SelectedOrder,
+			    0, "Sales by Category",
+			    1, "Sales by Product",
+			    "Sales by Category & Product" 
+			)
+			```
+		lineageTag: 366289ce-1a84-4e75-be7f-34164a3ef563
+
+	column 'Product View Toggle'
+		lineageTag: 8989fa24-8ab7-4908-b03e-09b65537984a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Product View Toggle Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Product View Toggle Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product View Toggle Fields'
+		isHidden
+		lineageTag: c122c1d7-432c-48ed-bc78-843dfcd1b604
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Product View Toggle Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product View Toggle Order'
+		isHidden
+		formatString: 0
+		lineageTag: 29275771-0062-488f-bf3a-7604f6404ccf
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Product View Toggle' = calculated
+		mode: import
+		source =
+				{
+				    ("CategoryName", NAMEOF('Product Categories Lookup'[CategoryName]), 0),
+				    ("ProductName", NAMEOF('Product Lookup'[ProductName]), 1)
+				}
+
+	annotation PBI_Id = e3175e80c54e4f22a2200572bbefef40
+
