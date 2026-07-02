@@ -1,7 +1,7 @@
-# 📊 AdventureWorks Internet Sales Analytics Dashboard
+# 📊 E-Commerce Sales Analytics Dashboard
 
 ### 🔍 Project Overview
-The **AdventureWorks Internet Sales Analytics Dashboard** is an interactive Power BI solution designed to provide deep insights into sales, profitability, customer behavior, and product performance across multiple dimensions.  
+The **E-Commerce Sales Analytics Dashboard** is an interactive Power BI solution designed to provide deep insights into sales, profitability, customer behavior, and product performance across multiple dimensions.  
 This project demonstrates advanced data modeling, DAX measures, and visual storytelling to support business decision-making through a dynamic and professional dashboard interface.
 
 ---
@@ -47,7 +47,7 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - Year-over-Year and Month-over-Month performance overview  
 - High-level visualization of sales and profitability trends
   
-![AdventureWorks Internet Sales Analytics_page-0001](https://github.com/user-attachments/assets/3ebbc329-47ed-4090-8463-b4abcf1e6dac)
+![AdventureWorks Internet Sales Analytics_page-0001](assets/01_overview.png)
 
 
 #### 2. **Sales Performance**
@@ -55,7 +55,7 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - Product category contribution  
 - Target vs Actual performance visualization
   
-![AdventureWorks Internet Sales Analytics_page-0002](https://github.com/user-attachments/assets/f425f27c-0854-4938-a9e4-4e1dd56df01f)
+![AdventureWorks Internet Sales Analytics_page-0002](assets/02_sales_performance.png)
 
 
 #### 3. **Customer Analytics**
@@ -63,14 +63,14 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - Top 10 customers by sales  
 - Customer retention trend and behavior analysis
   
-![AdventureWorks Internet Sales Analytics_page-0003](https://github.com/user-attachments/assets/0676546b-db93-452e-b8c7-1edb563f8756)
+![AdventureWorks Internet Sales Analytics_page-0003](assets/03_customer_analytics.png)
 
 
 #### 4. **Product Profitability**
 - Profit margin by product and category  
 - Top and low-performing products  
 - Profit per unit and product return impact  
-![AdventureWorks Internet Sales Analytics_page-0004](https://github.com/user-attachments/assets/d198bdf2-18de-491b-9166-38a70be408ae)
+![AdventureWorks Internet Sales Analytics_page-0004](assets/04_product_profitability.png)
 
 
 #### 5. **Regional Insights**
@@ -78,7 +78,7 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - Map visualization for geographic performance  
 - Top-performing markets
   
-![AdventureWorks Internet Sales Analytics_page-0005](https://github.com/user-attachments/assets/c2784783-ece1-411f-889f-355feda1b78f)
+![AdventureWorks Internet Sales Analytics_page-0005](assets/05_regional_insights.png)
 
 
 #### 6. **Returns Analysis**
@@ -86,7 +86,7 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - High-risk products and regions  
 - Adjusted profit after return deduction
   
-![AdventureWorks Internet Sales Analytics_page-0006](https://github.com/user-attachments/assets/98be0da9-532a-4fcb-afd5-320518373daf)
+![AdventureWorks Internet Sales Analytics_page-0006](assets/06_return_analysis.png)
 
 
 #### 7. **Time Intelligence**
@@ -94,7 +94,7 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - YoY and MoM comparison charts  
 - Seasonal sales and profit trend
   
-![AdventureWorks Internet Sales Analytics_page-0007](https://github.com/user-attachments/assets/9b612236-de37-4c03-82cc-2479f9bc6a18)
+![AdventureWorks Internet Sales Analytics_page-0007](assets/07_time_intelligence.png)
 
 
 #### 8. **Customer Segmentation**
@@ -102,24 +102,17 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 - RFM (Recency, Frequency, Monetary) pattern visualization  
 - Cumulative sales distribution by customer rank
   
-![AdventureWorks Internet Sales Analytics_page-0008](https://github.com/user-attachments/assets/07aa2fc0-58a8-490b-b235-ebcccd87792c)
+![AdventureWorks Internet Sales Analytics_page-0008](assets/08_customer_segmentation.png)
 
 
 #### 9. **Product Profile**
 - Drill-through page for product-level deep dive  
 - Product cost, sales, profit margin, and return details
   
-![AdventureWorks Internet Sales Analytics_page-0009](https://github.com/user-attachments/assets/12584752-d1b5-4de6-98b1-a141a876e9d3)
+![AdventureWorks Internet Sales Analytics_page-0009](assets/09_product_profile.png)
 
 
 ---
-
-### 🎨 Design and User Experience
-- **Theme Color:** `#00AEB9` (Turquoise) with white-based minimalist layout  
-- **Navigation Panel:** Left-side vertical panel with icons and text  
-- **Consistency:** Uniform KPIs, typography, and formatting across all pages  
-- **Accessibility:** Searchable slicers, interactive filters, and bookmarks for seamless navigation  
-
 ---
 
 ### 📈 Business Impact
@@ -141,15 +134,6 @@ This project demonstrates advanced data modeling, DAX measures, and visual story
 ## 🙋‍♂️ About Me
 
 I'm passionate about data, product thinking, and solving real-world problems with business intelligence. If you're interested in collaborating or want to discuss the dashboard, feel free to connect!
-
-
-💼 https://mdyeakub-py.github.io/Personal_Portfolio-/
-
-🔗 https://www.linkedin.com/in/mdyeakub35/
-
-📧 mdyeakub.cse@gmail.com
-
-🐱 GitHub: https://github.com/MdYeakub-py
 
 ---
 
